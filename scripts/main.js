@@ -5,11 +5,17 @@ const state = {
   codeSnippet: undefined,
 };
 
+// ----------* Selecting nodes *-------------
+const imageInputElement = document.getElementById("image");
+
 // ----------* FUNCTION DECLARATIONS *--------------
 
 // ---* for event listeners *---
 function onImageInputChanged() {
-  const imageInputElement = document.getElementById("image");
   const selectedImageFile = imageInputElement.files[0];
   state.image = selectedImageFile.name;
 }
+
+// ----------* EVENT LISTENERS *--------------
+
+imageInputElement.addEventListener("change", onImageInputChanged);
