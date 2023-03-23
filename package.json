@@ -1,0 +1,19 @@
+{
+  "name": "caption-me-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dyazdani/caption-me-app.git"
+  },
+  "author": "Dara Yazdani",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/dyazdani/caption-me-app/issues"
+  },
+  "homepage": "https://github.com/dyazdani/caption-me-app#readme"
+}
