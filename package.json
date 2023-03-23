@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/dyazdani/caption-me-app/issues"
   },
-  "homepage": "https://github.com/dyazdani/caption-me-app#readme"
+  "homepage": "https://github.com/dyazdani/caption-me-app#readme",
+  "devDependencies": {
+    "jest": "^29.5.0"
+  }
 }
