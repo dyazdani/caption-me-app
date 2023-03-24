@@ -3,6 +3,7 @@ const state = {
   image: undefined,
   caption: undefined,
   codeSnippet: undefined,
+  xmlHttpRequestObject: undefined,
 };
 
 // ----------* Selecting nodes *-------------
@@ -50,26 +51,32 @@ function renderImagePreview(selectedImageFile) {
 
 //---
 
-//XMLHTTPRequest to Cloudmersive imageapi
+//XMLHttpRequest to Cloudmersive imageapi
 function requestForAPI() {
   const selectedImageFile = imageInputElement.files[0];
   const data = new FormData();
   data.append("imageFile", selectedImageFile, "file");
 
-  const xhr = new XMLHttpRequest();
-  // xhr.withCredentials = true;
+  state.xmlHttpRequestObject = new XMLHttpRequest();
+  // state.xmlHttpRequestObject.withCredentials = true;
 
-  xhr.addEventListener("readystatechange", function () {
+  state.xmlHttpRequestObject.addEventListener("readystatechange", function () {
     if (this.readyState === 4) {
       console.log(this.responseText);
     }
   });
 
-  xhr.open("POST", "https://api.cloudmersive.com/image/recognize/describe");
+  state.xmlHttpRequestObject.open(
+    "POST",
+    "https://api.cloudmersive.com/image/recognize/describe"
+  );
 
-  xhr.setRequestHeader("Apikey", "eea0fd3c-6342-4543-a92c-9fc111175b97");
+  state.xmlHttpRequestObject.setRequestHeader(
+    "Apikey",
+    "eea0fd3c-6342-4543-a92c-9fc111175b97"
+  );
 
-  xhr.send(data);
+  state.xmlHttpRequestObject.send(data);
 }
 
 // ----------* EVENT LISTENERS *--------------
