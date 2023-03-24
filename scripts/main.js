@@ -14,6 +14,14 @@ const getCaptionButton = document.querySelector("#get-caption");
 
 // ----------* FUNCTION DECLARATIONS *--------------
 
+function renderGetCaptionButton() {
+  const getCaptionButton = getGetCaptionButton();
+  const main = document.querySelector('main');
+  main.appendChild(getCaptionButton);
+}
+
+// --
+
 function renderCaptionElement() {
   const captionElement = getCaptionElement();
   const main = document.querySelector("main");
@@ -37,6 +45,17 @@ function renderCopyImgCodeSnippetButton() {
 }
 
 // ---* helper functions *---
+function getGetCaptionButton() {
+  const button = document.createElement('button')
+  button.id = 'get-caption'
+  button.setAttribute('type', 'button');
+  button.innerText = 'Get Caption';
+
+  return button;
+}
+
+// --
+
 function renderImagePreview(selectedImageFile) {
   if (!document.querySelector("img")) {
     const imagePreview = document.createElement("img");
@@ -46,7 +65,6 @@ function renderImagePreview(selectedImageFile) {
     const div = document.querySelector("#image-preview-container");
     div.appendChild(imagePreview);
     const main = document.querySelector("main");
-    console.log(main.firstChild);
     main.insertBefore(main.firstChild, div);
   }
 
@@ -121,6 +139,7 @@ function onImageInputChanged() {
   state.image = selectedImageFile.name;
 
   renderImagePreview(selectedImageFile);
+  renderGetCaptionButton();
 }
 
 function onGetCaptionButtonClicked() {
