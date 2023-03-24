@@ -7,6 +7,7 @@ const state = {
 
 // ----------* Selecting nodes *-------------
 const imageInputElement = document.getElementById("image");
+const getCaptionButton = document.querySelector('#get-caption');
 
 // ----------* FUNCTION DECLARATIONS *--------------
 
@@ -16,6 +17,10 @@ function onImageInputChanged() {
   state.image = selectedImageFile.name;
 
   renderImagePreview(selectedImageFile);
+}
+
+function onGetCaptionButtonClicked() {
+  requestForAPI();
 }
 
 // ---* helper functions *---
@@ -35,7 +40,6 @@ function renderImagePreview(selectedImageFile) {
   reader.addEventListener(
     "load",
     () => {
-      // convert image file to base64 string
       imagePreview.src = reader.result;
     },
     false
@@ -44,6 +48,31 @@ function renderImagePreview(selectedImageFile) {
   reader.readAsDataURL(selectedImageFile);
 }
 
+//---
+
+//XMLHTTPRequest to Cloudmersive imageapi
+function requestForAPI() {
+  const selectedImageFile = imageInputElement.files[0];
+  var data = new FormData();
+  data.append("imageFile", selectedImageFile, "file");
+  
+  var xhr = new XMLHttpRequest();
+  // xhr.withCredentials = true;
+
+  xhr.addEventListener("readystatechange", function() {
+      if(this.readyState === 4) {
+            console.log(this.responseText);
+      }
+  });
+
+  xhr.open("POST", "https://api.cloudmersive.com/image/recognize/describe");
+
+  xhr.setRequestHeader("Apikey", "eea0fd3c-6342-4543-a92c-9fc111175b97");
+
+  xhr.send(data);
+}
+
 // ----------* EVENT LISTENERS *--------------
 
 imageInputElement.addEventListener("change", onImageInputChanged);
+getCaptionButton.addEventListener('click', onGetCaptionButtonClicked);
