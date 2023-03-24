@@ -12,16 +12,10 @@ const getCaptionButton = document.querySelector("#get-caption");
 
 // ----------* FUNCTION DECLARATIONS *--------------
 
-// ---* for event listeners *---
-function onImageInputChanged() {
-  const selectedImageFile = imageInputElement.files[0];
-  state.image = selectedImageFile.name;
-
-  renderImagePreview(selectedImageFile);
-}
-
-function onGetCaptionButtonClicked() {
-  requestForAPI();
+function renderCaptionElement() {
+  const captionElement = getCaptionElement();
+  const main = document.querySelector("main");
+  main.appendChild(captionElement);
 }
 
 // ---* helper functions *---
@@ -47,6 +41,28 @@ function renderImagePreview(selectedImageFile) {
   );
 
   reader.readAsDataURL(selectedImageFile);
+}
+
+// ---
+
+function getCaptionElement() {
+  if (state.caption) {
+    const captionElement = document.createElement("p");
+    captionElement.innerText = state.caption;
+    return captionElement;
+  }
+}
+
+// ---* for event listeners *---
+function onImageInputChanged() {
+  const selectedImageFile = imageInputElement.files[0];
+  state.image = selectedImageFile.name;
+
+  renderImagePreview(selectedImageFile);
+}
+
+function onGetCaptionButtonClicked() {
+  requestForAPI();
 }
 
 //---
@@ -75,11 +91,11 @@ async function requestForAPI() {
     })
     .then(function (data) {
       // `data` is the parsed version of the JSON returned from the above endpoint.
-      console.log(data);
       state.fetchedJson = data;
-    });
-
-  console.log(state.fetchedJson);
+      state.caption = state.fetchedJson.BestOutcome.Description;
+      console.log(state.caption);
+    })
+    .then(renderCaptionElement);
 }
 
 // ----------* EVENT LISTENERS *--------------
