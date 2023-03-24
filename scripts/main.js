@@ -73,7 +73,20 @@ function getCopyButton() {
   return button;
 }
 
+// ---
+
+function getImgCodeSnippet() {
+  const imagePreviewElement = document.querySelector("#image-preview");
+  const imageSource = imagePreviewElement.getAttribute("src");
+  const codeSnippet = `<img alt="${state.caption}" src="${imageSource}">`;
+  return codeSnippet;
+}
+
 // ---* for event listeners *---
+function onCopyCodeSnippetClicked() {
+  navigator.clipboard.writeText(state.codeSnippet);
+}
+
 function onCopyButtonClicked() {
   navigator.clipboard.writeText(state.caption);
 }
@@ -117,6 +130,8 @@ async function requestForAPI() {
       // `data` is the parsed version of the JSON returned from the above endpoint.
       state.fetchedJson = data;
       state.caption = state.fetchedJson.BestOutcome.Description;
+      state.codeSnippet = getImgCodeSnippet();
+      console.log(state.codeSnippet);
     })
     .then(renderCaptionElement)
     .then(renderCopyButton);
