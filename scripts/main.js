@@ -26,6 +26,14 @@ function renderCopyButton() {
   main.appendChild(copyButton);
 }
 
+// ---
+
+function renderCopyImgCodeSnippetButton() {
+  const copyImgCodeSnippetButton = getCopyImgCodeSnippetButton();
+  const main = document.querySelector("main");
+  main.appendChild(copyImgCodeSnippetButton);
+}
+
 // ---* helper functions *---
 function renderImagePreview(selectedImageFile) {
   if (!document.querySelector("img")) {
@@ -82,8 +90,20 @@ function getImgCodeSnippet() {
   return codeSnippet;
 }
 
+// ---
+
+function getCopyImgCodeSnippetButton() {
+  const button = document.createElement("button");
+  button.setAttribute("type", "button");
+  button.innerText = "Copy code snippet for image with caption as alt text";
+
+  button.addEventListener("click", onCopyImgCodeSnippetButtonClicked);
+
+  return button;
+}
+
 // ---* for event listeners *---
-function onCopyCodeSnippetClicked() {
+function onCopyImgCodeSnippetButtonClicked() {
   navigator.clipboard.writeText(state.codeSnippet);
 }
 
@@ -131,10 +151,10 @@ async function requestForAPI() {
       state.fetchedJson = data;
       state.caption = state.fetchedJson.BestOutcome.Description;
       state.codeSnippet = getImgCodeSnippet();
-      console.log(state.codeSnippet);
     })
     .then(renderCaptionElement)
-    .then(renderCopyButton);
+    .then(renderCopyButton)
+    .then(renderCopyImgCodeSnippetButton);
 }
 
 // ----------* EVENT LISTENERS *--------------
