@@ -10,7 +10,6 @@ const state = {
 
 // ----------* Selecting nodes *-------------
 const imageInputElement = document.getElementById("image");
-const getCaptionButton = document.querySelector("#get-caption");
 
 // ----------* FUNCTION DECLARATIONS *--------------
 
@@ -140,6 +139,8 @@ function onImageInputChanged() {
 
   renderImagePreview(selectedImageFile);
   renderGetCaptionButton();
+  const getCaptionButton = document.querySelector("#get-caption");
+  getCaptionButton.addEventListener("click", onGetCaptionButtonClicked);
 }
 
 function onGetCaptionButtonClicked() {
@@ -184,4 +185,3 @@ async function requestForAPI() {
 // ----------* EVENT LISTENERS *--------------
 
 imageInputElement.addEventListener("change", onImageInputChanged);
-getCaptionButton.addEventListener("click", onGetCaptionButtonClicked);
