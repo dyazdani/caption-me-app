@@ -43,8 +43,11 @@ function renderImagePreview(selectedImageFile) {
     imagePreview.id = "image-preview";
     imagePreview.setAttribute("src", "");
     imagePreview.setAttribute("alt", "Image preview");
+    const div = document.querySelector("#image-preview-container");
+    div.appendChild(imagePreview);
     const main = document.querySelector("main");
-    main.appendChild(imagePreview);
+    console.log(main.firstChild);
+    main.insertBefore(main.firstChild, div);
   }
 
   const imagePreview = document.querySelector("#image-preview");
