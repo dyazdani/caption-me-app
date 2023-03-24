@@ -1,3 +1,5 @@
+// cSpell: ignore Apikey
+
 // ----------* object to track state of app *----------
 const state = {
   image: undefined,
