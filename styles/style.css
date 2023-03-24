@@ -8,6 +8,16 @@ main {
   display: flex;
   flex-flow: column nowrap;
 }
+
+button,
+input {
+  margin-bottom: 0.75rem;
+}
+
 #image-preview {
   width: 300px;
+}
+
+p {
+  text-align: center;
 }
