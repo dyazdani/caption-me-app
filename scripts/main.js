@@ -3,7 +3,7 @@ const state = {
   image: undefined,
   caption: undefined,
   codeSnippet: undefined,
-  xmlHttpRequestObject: undefined,
+  fetchedJson: undefined,
 };
 
 // ----------* Selecting nodes *-------------
@@ -51,32 +51,35 @@ function renderImagePreview(selectedImageFile) {
 
 //---
 
-//XMLHttpRequest to Cloudmersive imageapi
-function requestForAPI() {
+// fetch request
+async function requestForAPI() {
   const selectedImageFile = imageInputElement.files[0];
   const data = new FormData();
   data.append("imageFile", selectedImageFile, "file");
 
-  state.xmlHttpRequestObject = new XMLHttpRequest();
-  // state.xmlHttpRequestObject.withCredentials = true;
+  const fetchHeader = new Headers();
+  fetchHeader.append("Apikey", "eea0fd3c-6342-4543-a92c-9fc111175b97");
 
-  state.xmlHttpRequestObject.addEventListener("readystatechange", function () {
-    if (this.readyState === 4) {
-      console.log(this.responseText);
-    }
-  });
+  const options = {
+    method: "POST",
+    body: data,
+    credentials: "omit",
+    headers: fetchHeader,
+  };
 
-  state.xmlHttpRequestObject.open(
-    "POST",
-    "https://api.cloudmersive.com/image/recognize/describe"
-  );
+  await fetch("https://api.cloudmersive.com/image/recognize/describe", options)
+    .then(function (response) {
+      // The response is a Response instance.
+      // You parse the data into a useable format using `.json()`
+      return response.json();
+    })
+    .then(function (data) {
+      // `data` is the parsed version of the JSON returned from the above endpoint.
+      console.log(data);
+      state.fetchedJson = data;
+    });
 
-  state.xmlHttpRequestObject.setRequestHeader(
-    "Apikey",
-    "eea0fd3c-6342-4543-a92c-9fc111175b97"
-  );
-
-  state.xmlHttpRequestObject.send(data);
+  console.log(state.fetchedJson);
 }
 
 // ----------* EVENT LISTENERS *--------------
