@@ -1,3 +1,13 @@
+body {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+}
+
+main {
+  display: flex;
+  flex-flow: column nowrap;
+}
 #image-preview {
   width: 300px;
 }
