@@ -18,6 +18,14 @@ function renderCaptionElement() {
   main.appendChild(captionElement);
 }
 
+// ---
+
+function renderCopyButton() {
+  const copyButton = getCopyButton();
+  const main = document.querySelector("main");
+  main.appendChild(copyButton);
+}
+
 // ---* helper functions *---
 function renderImagePreview(selectedImageFile) {
   if (!document.querySelector("img")) {
@@ -53,7 +61,23 @@ function getCaptionElement() {
   }
 }
 
+// ---
+
+function getCopyButton() {
+  const button = document.createElement("button");
+  button.setAttribute("type", "button");
+  button.innerText = "Copy caption text";
+
+  button.addEventListener("click", onCopyButtonClicked);
+
+  return button;
+}
+
 // ---* for event listeners *---
+function onCopyButtonClicked() {
+  navigator.clipboard.writeText(state.caption);
+}
+
 function onImageInputChanged() {
   const selectedImageFile = imageInputElement.files[0];
   state.image = selectedImageFile.name;
@@ -93,9 +117,9 @@ async function requestForAPI() {
       // `data` is the parsed version of the JSON returned from the above endpoint.
       state.fetchedJson = data;
       state.caption = state.fetchedJson.BestOutcome.Description;
-      console.log(state.caption);
     })
-    .then(renderCaptionElement);
+    .then(renderCaptionElement)
+    .then(renderCopyButton);
 }
 
 // ----------* EVENT LISTENERS *--------------
