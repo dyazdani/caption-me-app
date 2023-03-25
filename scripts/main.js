@@ -23,24 +23,27 @@ function renderGetCaptionButton() {
 
 function renderCaptionElement() {
   const captionElement = getCaptionElement();
+  const div = document.createElement('div');
+  div.id = 'caption-container';
+  div.appendChild(captionElement);
   const main = document.querySelector("main");
-  main.appendChild(captionElement);
+  main.appendChild(div);
 }
 
 // ---
 
 function renderCopyButton() {
   const copyButton = getCopyButton();
-  const main = document.querySelector("main");
-  main.appendChild(copyButton);
+  const div = document.querySelector("#caption-container");
+  div.appendChild(copyButton);
 }
 
 // ---
 
 function renderCopyImgCodeSnippetButton() {
   const copyImgCodeSnippetButton = getCopyImgCodeSnippetButton();
-  const main = document.querySelector("main");
-  main.appendChild(copyImgCodeSnippetButton);
+  const div = document.querySelector("#caption-container");
+  div.appendChild(copyImgCodeSnippetButton);
 }
 
 // ---* helper functions *---
