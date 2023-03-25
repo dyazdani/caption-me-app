@@ -20,4 +20,7 @@ input {
 
 p {
   text-align: center;
+  padding: .5rem;
+  border: 1px solid black;
+  border-radius: 5px;
 }
