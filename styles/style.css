@@ -7,15 +7,31 @@ body {
 main {
   display: flex;
   flex-flow: column nowrap;
+  width: 30vw;
+  align-items: center;
 }
 
-button,
-input {
-  margin-bottom: 0.75rem;
+#choose-image{
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: left;
+  margin-top: 2rem;
+}
+
+#image-preview-container {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
 }
 
 #image-preview {
-  width: 300px;
+  width: 350px;
+}
+
+#get-caption {
+  width: fit-content;
+  align-self: center;
+  margin-top: 3rem;
 }
 
 p {
