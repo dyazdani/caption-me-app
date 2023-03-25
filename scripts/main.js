@@ -89,7 +89,7 @@ function renderImagePreview(selectedImageFile) {
 function getCaptionElement() {
   if (state.caption) {
     const captionElement = document.createElement("p");
-    captionElement.innerText = state.caption;
+    captionElement.innerText = `"${state.caption}"`;
     return captionElement;
   }
 }
