@@ -120,7 +120,7 @@ function getImgCodeSnippet() {
 function getCopyImgCodeSnippetButton() {
   const button = document.createElement("button");
   button.setAttribute("type", "button");
-  button.innerText = "Copy code snippet for image with caption as alt text";
+  button.innerText = "Copy code snippet";
 
   button.addEventListener("click", onCopyImgCodeSnippetButtonClicked);
 
