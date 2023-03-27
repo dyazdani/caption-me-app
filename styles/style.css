@@ -1,0 +1,52 @@
+body {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+}
+
+main {
+  display: flex;
+  flex-flow: column nowrap;
+  width: 30vw;
+  align-items: center;
+}
+
+#choose-image{
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: left;
+  margin-top: 2rem;
+}
+
+#image-preview-container {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+}
+
+#image-preview {
+  width: 350px;
+}
+
+#get-caption {
+  width: fit-content;
+  align-self: center;
+  margin-top: 3rem;
+}
+
+p {
+  text-align: center;
+  padding: .5rem;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+#caption-container button {
+  width: 50%;
+}
+
+#image-size-modal {
+  position: fixed;
+  top: 10vh;
+  background-color: rgb(246, 117, 117);
+}
