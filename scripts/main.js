@@ -168,21 +168,14 @@ async function requestForAPI() {
     headers: fetchHeader,
   };
 
-  await fetch("https://api.cloudmersive.com/image/recognize/describe", options)
-    .then(function (response) {
-      // The response is a Response instance.
-      // You parse the data into a useable format using `.json()`
-      return response.json();
-    })
-    .then(function (data) {
-      // `data` is the parsed version of the JSON returned from the above endpoint.
-      state.fetchedJson = data;
-      state.caption = state.fetchedJson.BestOutcome.Description;
-      state.codeSnippet = getImgCodeSnippet();
-    })
-    .then(renderCaptionElement)
-    .then(renderCopyButton)
-    .then(renderCopyImgCodeSnippetButton);
+  const response = await fetch("https://api.cloudmersive.com/image/recognize/describe", options)
+  state.fetchedJson = await response.json();
+  state.caption = state.fetchedJson.BestOutcome.Description;
+  state.codeSnippet = getImgCodeSnippet();
+
+  renderCaptionElement();
+  renderCopyButton();
+  renderCopyImgCodeSnippetButton();
 }
 
 // ----------* EVENT LISTENERS *--------------
