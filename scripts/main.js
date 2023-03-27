@@ -2,10 +2,10 @@
 
 // ----------* object to track state of app *----------
 const state = {
-  image: undefined,
-  caption: undefined,
-  codeSnippet: undefined,
-  fetchedJson: undefined,
+  image: null,
+  caption: null,
+  codeSnippet: null,
+  fetchedJson: null,
 };
 
 // ----------* Selecting nodes *-------------
