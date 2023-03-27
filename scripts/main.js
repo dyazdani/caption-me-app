@@ -46,6 +46,12 @@ function renderCopyImgCodeSnippetButton() {
   div.appendChild(copyImgCodeSnippetButton);
 }
 
+function renderImageSizeErrorModal() {
+  const main = document.querySelector('main');
+  const modal = getImageSizeErrorModal();
+  main.insertBefore(modal, main.firstChild);
+}
+
 // ---* helper functions *---
 function getGetCaptionButton() {
   const button = document.createElement('button')
@@ -127,6 +133,18 @@ function getCopyImgCodeSnippetButton() {
   return button;
 }
 
+function getImageSizeErrorModal() {
+  const modal = document.createElement('p');
+  modal.innerText = 'Image must be less than 3 MB';
+  modal.id = 'image-size-modal';
+
+  document.documentElement.addEventListener('click', (event) => {
+    onClickAfterModalAppears(event);
+  });
+
+  return modal;
+}
+
 // ---* for event listeners *---
 function onCopyImgCodeSnippetButtonClicked() {
   navigator.clipboard.writeText(state.codeSnippet);
@@ -137,17 +155,30 @@ function onCopyButtonClicked() {
 }
 
 function onImageInputChanged() {
-  const selectedImageFile = imageInputElement.files[0];
-  state.image = selectedImageFile.name;
+  if (imageInputElement.files[0].size < 3000000){
+  
+    const selectedImageFile = imageInputElement.files[0];
+    state.image = selectedImageFile.name;
 
-  renderImagePreview(selectedImageFile);
-  renderGetCaptionButton();
-  const getCaptionButton = document.querySelector("#get-caption");
-  getCaptionButton.addEventListener("click", onGetCaptionButtonClicked);
+    renderImagePreview(selectedImageFile);
+    renderGetCaptionButton();
+    const getCaptionButton = document.querySelector("#get-caption");
+    getCaptionButton.addEventListener("click", onGetCaptionButtonClicked);
+  } else {
+    imageInputElement.value = '';
+    renderImageSizeErrorModal();
+  }
 }
 
 function onGetCaptionButtonClicked() {
   requestForAPI();
+}
+
+function onClickAfterModalAppears(event, controller) {
+  const modal = document.getElementById('image-size-modal');
+    if (event.target !== modal) {
+      modal.remove();
+    } 
 }
 
 //---
@@ -158,14 +189,13 @@ async function requestForAPI() {
   const data = new FormData();
   data.append("imageFile", selectedImageFile, "file");
 
-  const fetchHeader = new Headers();
-  fetchHeader.append("Apikey", "eea0fd3c-6342-4543-a92c-9fc111175b97");
-
   const options = {
     method: "POST",
     body: data,
     credentials: "omit",
-    headers: fetchHeader,
+    headers: {
+      "Apikey": "eea0fd3c-6342-4543-a92c-9fc111175b97"
+    }
   };
 
   const response = await fetch("https://api.cloudmersive.com/image/recognize/describe", options)

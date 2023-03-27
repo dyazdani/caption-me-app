@@ -44,3 +44,9 @@ p {
 #caption-container button {
   width: 50%;
 }
+
+#image-size-modal {
+  position: fixed;
+  top: 10vh;
+  background-color: rgb(246, 117, 117);
+}
